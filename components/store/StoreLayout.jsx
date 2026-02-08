@@ -5,7 +5,8 @@ import Link from "next/link"
 import { ArrowRightIcon } from "lucide-react"
 import SellerNavbar from "./StoreNavbar"
 import SellerSidebar from "./StoreSidebar"
-import { dummyStoreData } from "@/assets/assets"
+import { dummyStoreData } from "../../assets/assets"
+// import { dummyStoreData } from "@/assets/assets"
 
 const StoreLayout = ({ children }) => {
 
