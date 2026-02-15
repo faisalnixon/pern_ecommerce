@@ -363,7 +363,7 @@ export const dummyAdminDashboardData = {
     "orders": 6,
     "stores": 2,
     "products": 12,
-    "revenue": "959.10",
+    "revenue": 959.10,
     "allOrders": [
         { "createdAt": "2025-08-20T08:46:58.239Z", "total": 145.6 },
         { "createdAt": "2025-08-22T08:46:21.818Z", "total": 97.2 },
