@@ -113,12 +113,37 @@ export default function CreateStore() {
       toast.success(data.message);
       await fetchSellerStatus();
     } catch (error) {
-      toast.error(error?.response?.data?.error || error.message);
+      // toast.error(error?.response?.data?.error || error.message);
+      const message = error?.response?.data?.error || "Something went wrong";
+
+      toast.error(message);
+
+      if (error?.response?.data?.alreadyExists) {
+        setAlreadySubmitted(true);
+        setMessage(message);
+      }
     }
   };
 
+  // useEffect(() => {
+  //   if (user) {
+  //     fetchSellerStatus();
+  //   }
+  // }, [user]);
+
   useEffect(() => {
     if (user) {
+      // Get primary email from Clerk
+      const primaryEmail =
+        user.emailAddresses.find(
+          (email) => email.id === user.primaryEmailAddressId,
+        )?.emailAddress || "";
+
+      setStoreInfo((prev) => ({
+        ...prev,
+        email: primaryEmail,
+      }));
+
       fetchSellerStatus();
     }
   }, [user]);
@@ -213,7 +238,7 @@ export default function CreateStore() {
               className="border border-slate-300 outline-slate-400 w-full max-w-lg p-2 rounded resize-none"
             />
 
-            <p>Email</p>
+            {/* <p>Email</p>
             <input
               name="email"
               onChange={onChangeHandler}
@@ -221,6 +246,16 @@ export default function CreateStore() {
               type="email"
               placeholder="Enter your store email"
               className="border border-slate-300 outline-slate-400 w-full max-w-lg p-2 rounded"
+            /> */}
+
+            <p>Email</p>
+            <input
+              name="email"
+              value={storeInfo.email}
+              type="email"
+              readOnly
+              disabled
+              className="border border-slate-300 bg-slate-100 cursor-not-allowed w-full max-w-lg p-2 rounded"
             />
 
             <p>Contact Number</p>
