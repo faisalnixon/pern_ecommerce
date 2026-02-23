@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
     }
 
     const isPlusMember = has({ plan: "plus" });
-    //     Check if coupon is applicable for members
+    //Check if coupon is applicable for members
     if (couponCode && coupon.forMember) {
       if (!isPlusMember) {
         return NextResponse.json(
@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
 
     let isShippingFeeAdded = false;
 
-    //     Create orders for each seller
+    // Create orders for each seller
     for (const [storeId, sellerItems] of ordersByStore.entries()) {
       let total = sellerItems.reduce(
         (acc, item) => acc + item.price * item.quantity,
@@ -157,8 +157,7 @@ export async function POST(request: NextRequest) {
        return NextResponse.json({session})
     }
 
-
-    //     clear the cart
+    //clear the cart
     await prisma.user.update({
       where: { id: userId },
       data: { cart: {} },

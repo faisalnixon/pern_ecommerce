@@ -10,7 +10,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.text();
-    //     const sig = request.get("stripe-signature");
+
+    //const sig = request.get("stripe-signature");
     const sig = request.headers.get("stripe-signature") as string;
 
     const event = stripe.webhooks.constructEvent(
@@ -52,6 +53,7 @@ export async function POST(request: NextRequest) {
           data: { cart: {} },
         });
       } else {
+
         // delete order from db
         await Promise.all(
           orderIdsArray.map(async (orderId) => {
@@ -84,6 +86,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: 400 });
   }
 }
+
+
 
 // export const config = {
 //   api: { bodyparser: false },
