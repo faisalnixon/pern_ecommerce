@@ -2,7 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { prisma } from "../../../src-db/db";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: "2026-01-28.clover",
+});
 
 export async function POST(request: NextRequest) {
   try {
@@ -82,6 +85,8 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export const config = {
-  api: { bodyparser: false },
-};
+// export const config = {
+//   api: { bodyparser: false },
+// };
+
+export const runtime = "nodejs";
