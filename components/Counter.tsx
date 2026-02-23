@@ -2,10 +2,11 @@
 import { addToCart, removeFromCart } from "../lib/features/cart/cartSlice";
 // import { addToCart, removeFromCart } from "@/lib/features/cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector } from "../lib/hooks";
 
 const Counter = ({ productId }) => {
 
-    const { cartItems } = useSelector(state => state.cart);
+    const { cartItems } = useAppSelector(state => state.cart);
 
     const dispatch = useDispatch();
 

@@ -8,7 +8,8 @@ import { productDummyData } from "../../../assets/assets";
 import { useAuth, useUser } from "@clerk/nextjs";
 import axios from "axios";
 // import { productDummyData } from "@/assets/assets"
-import { Product } from "@prisma/client";
+// import { Product } from "@prisma/client";
+import { Product } from "../../../src-db/generated/prisma";
 
 // type Product = {
 //   id: string;
