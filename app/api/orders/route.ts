@@ -2,7 +2,7 @@ import { getAuth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../../../src-db/db";
 import { PaymentMethod } from "@prisma/client";
-import Stripe from "stripe"; 'stripe'
+import Stripe from "stripe"
 
 interface OrderItemType {
   id: string;
