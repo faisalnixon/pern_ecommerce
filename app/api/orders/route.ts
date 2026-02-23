@@ -1,7 +1,8 @@
 import { getAuth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../../../src-db/db";
-import { PaymentMethod } from "@prisma/client";
+// import { PaymentMethod } from "@prisma/client";
+import { PaymentMethod } from "../../../src-db/generated/prisma";
 import Stripe from "stripe"
 
 interface OrderItemType {
