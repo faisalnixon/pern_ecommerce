@@ -9,10 +9,8 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../../../lib/store";
 import type { Product, Rating, Store } from "../../../../src-db/generated/prisma";
 
-export interface ProductWithRelations extends Product {
-  rating?: Rating[];
-  store?: Store;
-}
+import type { ProductWithRelations } from "../../../../types/product";
+
 
 export default function Product() {
 
@@ -51,3 +49,6 @@ export default function Product() {
         </div>
     );
 }
+
+
+

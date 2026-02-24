@@ -26,19 +26,30 @@ export interface Store {
   updatedAt: string;
 }
 
-export interface ProductWithRelations {
-  id: string;
-  name: string;
-  description: string;
-  mrp: number;
-  price: number;
-  images: string[];
-  category: string;
-  inStock: boolean;
-  storeId: string;
-  createdAt: string;
-  updatedAt: string;
+// export interface ProductWithRelations {
+//   id: string;
+//   name: string;
+//   description: string;
+//   mrp: number;
+//   price: number;
+//   images: string[];
+//   category: string;
+//   inStock: boolean;
+//   storeId: string;
+//   createdAt: string;
+//   updatedAt: string;
 
-  rating: Rating[];
-  store: Store;
-}
+//   rating: Rating[];
+//   store: Store;
+// }
+
+// types/product.ts
+
+import { Prisma } from "../src-db/generated/prisma";
+
+export type ProductWithRelations = Prisma.ProductGetPayload<{
+  include: {
+    rating: true;
+    store: true;
+  };
+}>;
