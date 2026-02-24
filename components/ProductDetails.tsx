@@ -14,12 +14,19 @@ import { useState } from "react";
 import Image from "next/image";
 import Counter from "./Counter";
 import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector } from "../lib/hooks";
+// import { Product,Rating} from "../src-db/generated/prisma";
+import {ProductWithRelations} from "../types/product"
 
-const ProductDetails = ({ product }) => {
+
+
+const ProductDetails = ({ product }: {
+  product: ProductWithRelations;
+}) => {
   const productId = product.id;
   const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
 
-  const cart = useSelector((state) => state.cart.cartItems);
+  const cart = useAppSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
 
   const router = useRouter();
@@ -135,3 +142,5 @@ const ProductDetails = ({ product }) => {
 };
 
 export default ProductDetails;
+
+
