@@ -52,8 +52,8 @@ export async function POST(request: NextRequest) {
           where: { id: userId },
           data: { cart: {} },
         });
-      } else {
 
+      } else {
         // delete order from db
         await Promise.all(
           orderIdsArray.map(async (orderId) => {
