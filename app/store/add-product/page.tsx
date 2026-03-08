@@ -33,6 +33,8 @@ export default function StoreAddProduct() {
   });
   const [loading, setLoading] = useState(false);
 
+  const [aiUsed, setAiUesed] = useState(false);
+
   // const onChangeHandler = (e) => {
   //   setProductInfo({ ...productInfo, [e.target.name]: e.target.value });
   // };
@@ -44,6 +46,51 @@ export default function StoreAddProduct() {
       ...productInfo,
       [name]: name === "mrp" || name === "price" ? Number(value) : value,
     });
+  };
+
+  const handleImageUpload = async (key, file) => {
+    setImages((prev) => ({ ...prev, [key]: file }));
+
+    if (key === "1" && file && !aiUsed) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = async () => {
+        const result = reader.result as string;
+        const base64String = result.split(",")[1];
+        const mimeType = file.type;
+        const token = await getToken();
+
+        try {
+          await toast.promise(
+            axios.post(
+              "/api/store/ai",
+              { base64Image: base64String, mimeType },
+              { headers: { Authorization: `Bearer ${token}` } },
+            ),
+            { 
+                loading: "Analyzing image with AI...",
+                success:(res)=>{
+                  const data = res.data
+                  if(data.name && data.description){
+                    setProductInfo(prev => ({
+                      ...prev,
+                      name:data.name,
+                      description:data.description
+                    }))
+                    setAiUesed(true)
+                    return "AI filled product info"
+                  }
+                  return "AI could not analyze the image"
+                },
+                error:(err)=> err?.response?.data?.error || err.message
+               },
+          );
+        } catch (error) {
+          console.error(error);
+          
+        }
+      };
+    }
   };
 
   const onSubmitHandler = async (e) => {
@@ -85,11 +132,11 @@ export default function StoreAddProduct() {
         category: "",
       });
       // reset images
-      setImages({ 1: null, 2: null, 3: null, 4: null })
+      setImages({ 1: null, 2: null, 3: null, 4: null });
     } catch (error) {
-      toast.error(error?.response?.data?.error || error.message)
+      toast.error(error?.response?.data?.error || error.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -124,7 +171,8 @@ export default function StoreAddProduct() {
               accept="image/*"
               id={`images${key}`}
               onChange={(e) =>
-                setImages({ ...images, [key]: e.target.files[0] })
+                // setImages({ ...images, [key]: e.target.files[0] })
+                handleImageUpload(key,e.target.files[0])
               }
               hidden
             />
