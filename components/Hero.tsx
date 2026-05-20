@@ -77,6 +77,8 @@ const Hero = () => {
       <CategoriesMarquee />
     </div>
   );
+
+
 };
 
 export default Hero;

@@ -14,10 +14,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider
-      signInFallbackRedirectUrl="https://pern-ecommerce-iota.vercel.app/"
-      signUpFallbackRedirectUrl="https://pern-ecommerce-iota.vercel.app/"
-    >
+    <ClerkProvider>
       <html lang="en">
         <body className={`${outfit.className} antialiased`}>
           <StoreProvider>
